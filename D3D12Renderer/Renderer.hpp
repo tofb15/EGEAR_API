@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
+#include <Windows.h>
+#include "../EmptyRendererAPI/Renderer.hpp"
 
 //Forward Declarations
 #pragma region ForwardDeclarations
-namespace EGEAR {
+namespace D3D12 {
 	namespace Renderer {
 		class Mesh;
 		class Window;
@@ -12,27 +14,13 @@ namespace EGEAR {
 #pragma endregion
 
 //Renderer
-namespace EGEAR {
+namespace D3D12 {
 	namespace Renderer {
-		class Renderer
+		class Renderer : public EGEAR::Renderer::Renderer
 		{
 		public:
-			/**
-				Exemple of rendering APIs that could be implemented and retrieved from Renderer::CreateRenderer().
-				Change this list to contain the APIs you have implemented / are implementing.
-			*/
-			enum class BACKEND_TYPE
-			{
-				D3D11,
-				D3D12,
-				OpenGL,
-				Vulcan
-			};
-
+			Renderer();
 			virtual ~Renderer();
-
-			//Renderer
-			static Renderer* CreateRenderer(BACKEND_TYPE backend);
 
 			/*=========Rendering Specific=========*/
 			/**
@@ -43,7 +31,7 @@ namespace EGEAR {
 
 				@param mesh, the mesh to be submited to the renderer.
 			*/
-			virtual void Submit(Mesh* mesh) = 0;
+			virtual void Submit(EGEAR::Renderer::Mesh* mesh);
 			/**
 				Frame
 
@@ -52,7 +40,7 @@ namespace EGEAR {
 
 				@see Submit()
 			*/
-			virtual void Frame() = 0;
+			virtual void Frame();
 			/**
 				Present
 
@@ -60,7 +48,7 @@ namespace EGEAR {
 
 				@see Submit()
 			*/
-			virtual void Present() = 0;
+			virtual void Present();
 
 
 			/*=========Window Specific=========*/
@@ -74,17 +62,15 @@ namespace EGEAR {
 
 				@return true if the window was created successfully.
 			*/
-			virtual bool MakeWindow(unsigned width, unsigned height, std::string title, bool fullScreen) = 0;
+			virtual bool MakeWindow(unsigned width, unsigned height, std::string title, bool fullScreen);
 			/**
 				GetWindow
 
 				@return the window.
 			*/
-			virtual Window* GetWindow() = 0;
+			virtual EGEAR::Renderer::Window* GetWindow();
 		protected:
-			/*Should never be called, Use Renderer::CreateRenderer() insteed to create a specific renderer instance using the wanted rendering API*/
-			Renderer();
-			Window* m_window;			
+			HWND wndHandle;
 
 		};
 	}

@@ -1,13 +1,10 @@
 #pragma once
-
+#include <string>
 //Forward Declarations
 #pragma region ForwardDeclarations
-namespace std {
-	class string;
-}
 #pragma endregion
 
-namespace EGEAR {
+namespace D3D12 {
 	namespace Renderer {
 		class Window
 		{

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace EGEAR {
+namespace D3D12 {
 	namespace Renderer {
 		class Mesh
 		{
